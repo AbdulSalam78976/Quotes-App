@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'app/modules/quote/bindings/quote_binding.dart';
-import 'app/modules/quote/views/quote_view.dart';
+import 'app/modules/splash/bindings/splash_binding.dart';
+import 'app/modules/splash/views/splash_view.dart';
 import 'app/theme/app_theme.dart';
 
 void main() {
@@ -16,13 +16,13 @@ class QuotesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Quotes App',
+      title: 'ZenQuote',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
-      initialBinding: QuoteBinding(),
-      home: const QuoteView(),
+      initialBinding: SplashBinding(),
+      home: const SplashView(),
     );
   }
 }

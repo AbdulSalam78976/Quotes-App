@@ -41,6 +41,41 @@ class QuoteService {
       );
     }
   }
+
+  Future<List<Quote>> fetchQuotesByTag(String tag, {int limit = 10}) async {
+    final uri = Uri.parse(
+      '$_baseUrl/quotes',
+    ).replace(queryParameters: {'tags': tag, 'limit': limit.toString()});
+
+    try {
+      final response = await _client.get(uri);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data =
+            json.decode(response.body) as Map<String, dynamic>;
+        final results = (data['results'] as List<dynamic>? ?? [])
+            .map((json) => Quote.fromJson(json as Map<String, dynamic>))
+            .toList();
+        return results;
+      }
+
+      throw QuoteApiException(
+        message: 'Failed to load quotes (${response.statusCode}).',
+      );
+    } on SocketException {
+      throw QuoteApiException(
+        message: 'No internet connection. Please check your network.',
+      );
+    } on FormatException {
+      throw QuoteApiException(
+        message: 'Received malformed data. Please try again soon.',
+      );
+    } catch (_) {
+      throw QuoteApiException(
+        message: 'Unexpected error occurred. Please try again.',
+      );
+    }
+  }
 }
 
 class QuoteApiException implements Exception {

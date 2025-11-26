@@ -1,13 +1,12 @@
 import 'package:get/get.dart';
 
 import '../../../data/services/quote_service.dart';
-import '../controllers/quote_controller.dart';
+import '../controllers/quote_detail_controller.dart';
 
-class QuoteBinding extends Bindings {
+class QuoteDetailBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<QuoteService>(() => QuoteService());
-    Get.put(QuoteController(service: Get.find<QuoteService>()));
+    Get.put(QuoteDetailController(service: Get.find<QuoteService>()));
   }
 }
-
